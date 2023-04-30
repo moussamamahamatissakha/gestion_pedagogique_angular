@@ -1,0 +1,127 @@
+<!-- layout_bg section start -->
+<div class="layout_bg">
+    <!-- services section start -->
+
+    <!-- services section end -->
+    <!-- repair pool section start -->
+
+    <!-- repair pool section end -->
+    <!-- swiming section start -->
+
+    <!-- swiming section end -->
+    <!-- about section start -->
+    <div class="about_section layout_padding">
+        <div class="container">
+            <div class="about_box">
+                <section >
+
+                   <!-- MultiStep Form -->
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+      <div  class="d-flex justify-content-end ml-2">
+        <a class=" text-white fs-5 border border-white" routerLink="/classes" >retour</a>
+      </div>
+     
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2><strong>creation d'un Niveau</strong></h2>
+                <p>libelle</p>
+                <div class="row">
+                  
+                    <div class="col-md-12 mx-0">
+                      {{niveau.libelle}}
+                        <form id="msform" #addNiveauForm="ngForm" (ngSubmit)="addNiveauForm.valid && onAddNiveau()">
+                          <div class="form-group">
+                            <!-- progressbar -->
+                            <input type="text" class="form-control" 
+                            #libelle="ngModel"
+
+                            id="libelle" 
+                            [(ngModel)]="niveau.libelle" 
+                            name="libelle" 
+                            required
+                           
+                            [ngClass]="{
+                              'is-invalid':libelle.invalid && (libelle.dirty || libelle.touched),
+                              'is-valid':libelle.valid && (libelle.dirty || libelle.touched)
+                             }"
+                            
+                            
+                            >   
+                            
+                            <div class="text-danger" *ngIf="libelle.errors && (libelle.dirty)">
+                              <span *ngIf="libelle.errors['required']">libelle est obligatoire</span>
+                            
+                            </div>                         
+                            <br><br>
+                          </div>
+                           
+                        
+                            <button type="submit" class="btn btn-primary" [disabled]="addNiveauForm.invalid">Valider</button>
+                            <!-- fieldsets -->
+                            <br><br>
+                            
+                             
+                              
+                            
+                           
+                          
+
+
+
+
+
+
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        
+        <div  class="about_box" >
+          <h3>la liste des annees</h3>
+  
+          
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">libelle</th>
+              <th scope="col">etat</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let niveau of niveaux">
+              <th scope="row">{{niveau.id}}</th>
+              <td>{{niveau.libelle}}</td>
+              <td>{{niveau.etat}}</td>
+        
+              <td>
+                <a >les cours</a>
+              </td>
+            </tr>
+           
+        
+            </tbody>
+          </table>
+        </div>
+    </div>
+</div>
+
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <!-- about section end -->
+</div>
+<!-- layout_bg section end -->
+
+
+

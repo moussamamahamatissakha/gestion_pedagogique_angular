@@ -1,0 +1,90 @@
+<!-- layout_bg section start -->
+<div class="layout_bg">
+    <!-- services section start -->
+
+    <!-- services section end -->
+    <!-- repair pool section start -->
+
+    <!-- repair pool section end -->
+    <!-- swiming section start -->
+
+    <!-- swiming section end -->
+    <!-- about section start -->
+    <div class="about_section layout_padding">
+        <div class="container">
+            <div class="about_box">
+                <section >                                    <!-- MultiStep Form -->
+                  <div class="container-fluid" id="grad1">
+                      <div class="row justify-content-center mt-0">
+
+                        <div  class="d-flex justify-content-end ml-2">
+                          <a class=" text-white fs-5 border border-white" routerLink="/formulaires/anneeScolaire" >retour</a>
+                        </div>
+                        
+                          <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                              <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                                  <h2><strong>creation d'une Semestre</strong></h2>
+                                  <div class="row">
+                                      <div class="col-md-12 mx-0">
+                                        {{semestre.numero}}
+                                          <form id="msform" #addSemetresForm="ngForm" (ngSubmit)="addSemetresForm.valid && onAddSemestre()">
+                                            <div class="form-group">
+
+                                              <label for="" >Annee Scolaire</label>
+                                              <select class="form-select" aria-label="Default select example" name="anneeScolaire" [(ngModel)]="semestre.idAnnee">
+                                                <option selected  *ngFor="let anneeScolaire of anneescolaires"  [value]="anneeScolaire.id">{{anneeScolaire.libelle}}</option>
+                                              </select>
+                                              <label for="">Numero du session</label>
+                                              <!-- progressbar -->
+                                              <input type="number" class="form-control" #numero="ngModel" id="numero" [(ngModel)]="semestre.numero" name="numero" required [ngClass]="{'is-invalid':numero.invalid && (numero.dirty || numero.touched),'is-valid':numero.valid && (numero.dirty || numero.touched)}"ng-pattern="/^[1-2]$/">   
+                                              <div class="text-danger" *ngIf="numero.errors && (numero.dirty)">
+                                                <span *ngIf="numero.errors['required']">le numero du semestre est obligatoire</span>
+                                                <span *ngIf="numero.errors['ng-pattern']">le numero doit etre 1 ou 2</span>
+                                              </div>                         
+                                              <br><br>
+                                            </div>
+                                              <button type="submit" class="btn btn-primary" [disabled]="addSemetresForm.invalid">Valider</button>
+                                              <!-- fieldsets -->
+                                              <br><br>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div  class="about_box" >
+                            <h3>la liste des annees</h3>
+                            <table class="table">
+                              <thead>
+                              <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">semestre</th>
+                                <th scope="col">Annee-Scolaire</th>
+                                <th scope="col">Action</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr  *ngFor="let semestr of semestres">
+                                <th scope="row">{{semestr.id}}</th>
+                                <td>N ° : {{semestr.numero}}</td>
+                                <td> {{semestr.anneeScolaire.libelle}}</td>
+                          
+                                <td>
+                                  <a >les cours</a>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                      </div>
+                  </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <!-- about section end -->
+</div>
+<!-- layout_bg section end -->
+
+
+

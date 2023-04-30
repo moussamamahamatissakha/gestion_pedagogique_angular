@@ -1,0 +1,101 @@
+<!-- layout_bg section start -->
+<div class="layout_bg">
+    <!-- services section start -->
+
+    <!-- services section end -->
+    <!-- repair pool section start -->
+
+    <!-- repair pool section end -->
+    <!-- swiming section start -->
+
+    <!-- swiming section end -->
+    <!-- about section start -->
+    <div class="about_section layout_padding">
+        <div class="container">
+            <div class="about_box">
+                <section >
+
+                   <!-- MultiStep Form -->
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+      <div  class="d-flex justify-content-end ml-2">
+        <a class=" text-white fs-5 border border-white" routerLink="/formulaires/anneeScolaire" >retour</a>
+      </div>
+     
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2><strong>creation d'une salle</strong></h2>
+                <p>nom</p>
+                <div class="row">
+                  
+                    <div class="col-md-12 mx-0">
+                      
+                        <form id="msform" #addSalleForm="ngForm" (ngSubmit)="addSalleForm.valid && onAddSalle()">
+                          <div class="form-group">
+                            <!-- progressbar -->
+                            <input type="text" class="form-control" #nom="ngModel"id="nom" [(ngModel)]="salle.nom" name="nom" required [ngClass]="{'is-invalid':nom.invalid && (nom.dirty || nom.touched),'is-valid':nom.valid && (nom.dirty || nom.touched)}">   
+                            <label for="">numero</label>
+                            <input type="text" class="form-control" #numero="ngModel"id="numero" [(ngModel)]="salle.numero" name="numero" required [ngClass]="{'is-invalid':numero.invalid && (numero.dirty || numero.touched),'is-valid':numero.valid && (numero.dirty || numero.touched)}">   
+                            <label for="">nombre de places</label>
+                            <input type="text" class="form-control" #nombrePlaces="ngModel"id="nombrePlaces" [(ngModel)]="salle.nombrePlaces" name="nombrePlaces" required [ngClass]="{'is-invalid':nombrePlaces.invalid && (nombrePlaces.dirty || nombrePlaces.touched),'is-valid':nombrePlaces.valid && (nombrePlaces.dirty || nombrePlaces.touched)}">   
+                            
+                            <div class="text-danger" *ngIf="nom.errors && (nom.dirty)">
+                              <span *ngIf="nom.errors['required']">libelle est obligatoire</span>
+                             
+                            </div>                         
+                            <br><br>
+                          </div>
+                            <button type="submit" class="btn btn-primary" [disabled]="addSalleForm.invalid">Valider</button>
+                            <!-- fieldsets -->
+                            <br><br>
+                
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div  class="about_box" >
+          <h3>la liste des annees</h3>
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">nom</th>
+              <th scope="col">numero</th>
+              <th scope="col">nombre place</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let salle of salles">
+              <th scope="row">{{salle.id}}</th>
+              <td>{{salle.nom}}</td>
+              <td>{{salle.numero}}</td>
+              <td>{{salle.nombrePlaces}}</td>
+        
+              <td>
+                <a >les cours</a>
+              </td>
+            </tr>
+           
+        
+            </tbody>
+          </table>
+        </div>
+    </div>
+</div>
+
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <!-- about section end -->
+</div>
+<!-- layout_bg section end -->
+
+
+

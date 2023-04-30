@@ -1,0 +1,133 @@
+<!-- layout_bg section start -->
+<div class="layout_bg">
+    <!-- services section start -->
+
+    <!-- services section end -->
+    <!-- repair pool section start -->
+
+    <!-- repair pool section end -->
+    <!-- swiming section start -->
+
+    <!-- swiming section end -->
+    <!-- about section start -->
+    <div class="about_section layout_padding">
+        <div class="container">
+            <div class="about_box">
+                <section >
+
+                   <!-- MultiStep Form -->
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+      <div  class="d-flex justify-content-end ml-2">
+        <a class=" text-white fs-5 border border-white" routerLink="/formulaires/anneeScolaire" >retour</a><br>
+      
+      </div>
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2><strong>creation d'une session</strong></h2>
+                
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                      
+                        <form id="msform" #addCoursForm="ngForm" (ngSubmit)="addCoursForm.valid && onAddSession()">
+                          <div class="form-group">
+                            <label for="">Date du Session</label>
+                            <!-- progressbar -->
+                            <input type="date" class="form-control" #date="ngModel" id="date" [(ngModel)]="session.date" name="date" required [ngClass]="{'is-invalid':date.invalid && (date.dirty || date.touched),'is-valid':date.valid && (date.dirty || date.touched)}">   
+                            
+
+                            <label for="" >Cours</label>
+                            <select class="form-select" aria-label="Default select example"name="idCours" [(ngModel)]="session.idCours" required>
+                              <option selected  *ngFor="let cours of listCours"  [value]="cours.id">cours {{cours.id}}</option>
+                            </select>
+                            
+                            <label for="">Heure Debut</label>
+                            <!-- progressbar -->
+                            <input type="text" class="form-control" #heureDebut="ngModel" id="heureDebut" [(ngModel)]="session.heureDebut" name="heureDebut" required [ngClass]="{'is-invalid':heureDebut.invalid && (heureDebut.dirty || heureDebut.touched),'is-valid':heureDebut.valid && (heureDebut.dirty || heureDebut.touched)}" >   
+                          
+                            
+                            <label for="">Heure Fin</label>
+                            <!-- progressbar -->
+                            <input type="text" class="form-control" #heureFin="ngModel" id="heureFin" [(ngModel)]="session.heureFin" name="heureFin" required [ngClass]="{'is-invalid':heureFin.invalid && (heureFin.dirty || heureFin.touched),'is-valid':heureFin.valid && (heureFin.dirty || heureFin.touched)}">   
+                          
+                            <label for="">Nombre Heure</label>
+                            <!-- progressbar -->
+                            <input type="text" class="form-control" #nombreHeure="ngModel" id="nombreHeure" [(ngModel)]="session.nombreHeure" name="nombreHeure" required [ngClass]="{'is-invalid':nombreHeure.invalid && (nombreHeure.dirty || nombreHeure.touched),'is-valid':nombreHeure.valid && (nombreHeure.dirty || nombreHeure.touched)}">   
+                            
+                           
+                            <label for="" >Localisation</label>
+                            <select class="form-select" aria-label="Default select example"name="localisation" [(ngModel)]="session.localisation" required>
+                              <option selected    [value]="1">En Ligne </option>
+                              <option     [value]="2">En Presentiel </option>
+                            </select>
+                        
+                        
+                        </div>
+                           
+                            <button type="submit" class="btn btn-primary" [disabled]="addCoursForm.invalid">Valider</button>
+                            <!-- fieldsets -->
+                            <br><br>
+                 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  class="about_box" >
+          <h3>la liste de cours</h3>
+  
+          
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Date</th>
+              <th scope="col">Heure Debut</th>
+              <th scope="col">Heure Fin</th>
+              <th scope="col">Nombre Heure</th>
+              <th scope="col">Localisation</th>
+              <th scope="col">Etat</th>
+              <th scope="col"></th>
+              
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let session of sessions">
+              <th scope="row">{{session.id}}</th>
+              <td>{{session.date}}</td>
+            
+              <td>{{session.heureDebut}}</td>
+              <td>{{session.heureFin }}</td>
+              <td>{{session.nombreHeure}}</td>
+              <td>{{session.localisation}}</td>
+              <td>{{session.etat}}</td>
+        
+              <td>
+              
+              </td>
+            </tr>
+           
+        
+            </tbody>
+          </table>
+        </div>
+
+    </div>
+</div>
+
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <!-- about section end -->
+</div>
+<!-- layout_bg section end -->
+
+
+
+
+
+
+

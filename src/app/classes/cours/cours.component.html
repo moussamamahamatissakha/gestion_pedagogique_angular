@@ -1,0 +1,180 @@
+<!-- layout_bg section start -->
+<div class="layout_bg">
+    <!-- services section start -->
+
+    <!-- services section end -->
+    <!-- repair pool section start -->
+
+    <!-- repair pool section end -->
+    <!-- swiming section start -->
+
+    <!-- swiming section end -->
+    <!-- about section start -->
+    <div class="about_section layout_padding">
+        <div class="container">
+            <div class="about_box">
+                <section >
+
+                   <!-- MultiStep Form -->
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+      <div  class="d-flex justify-content-start ml-2">
+        <a class=" text-white fs-5 border border-danger" routerLink="/formulaires/anneeScolaire" >retour</a><br>
+       
+      </div>
+      <div  class="d-flex justify-content-end ml-2">
+        <a class=" text-white fs-5 border border-white" routerLink="/classes/session" >session</a><br>
+       
+      </div>
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2><strong>creation d'un cours</strong></h2>
+                
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                      
+                        <form id="msform" #addCoursForm="ngForm" (ngSubmit)="addCoursForm.valid && onAddCours()">
+                          <div class="form-group">
+
+                            <label for="" >Semestre</label>
+                            <select class="form-select" aria-label="Default select example"name="semestre" [(ngModel)]="ClasseCours.idSemestre" required>
+                              <option selected  *ngFor="let semestre of semestres"  [value]="semestre.id">semestre {{semestre.numero}}</option>
+                            </select>
+                            <label for="" >Professeur</label>
+                            <select class="form-select" aria-label="Default select example" name="professeur" [(ngModel)]="ClasseCours.idProfesseur" required>
+                              <option selected  *ngFor="let professeur of professeurs"  [value]="professeur.id">{{professeur.nom}}</option>
+                            </select>
+
+                            <label for="" >Module</label>
+                            <select class="form-select" aria-label="Default select example"name="module" [(ngModel)]="ClasseCours.idModule" required>
+                              <option selected  *ngFor="let module of modules"  [value]="module.id">{{module.libelle}}</option>
+                            </select>
+
+                           <br>
+
+                            <div class="form-check form-switch" *ngFor="let classe of classes">
+                              <input class="form-check-input" 
+                              type="checkbox" name="classe" [value]="classe.id" [(ngModel)]="classe.selected"
+                              
+                              >
+                              <label class="form-check-label" for="classe" >{{classe.libelle}}</label>
+                            </div>
+                           <br>
+
+                            <label for="">Nombre Heure</label>
+                            <!-- progressbar -->
+                            <input type="number" class="form-control" #nombreHeure="ngModel" id="nombreHeure" [(ngModel)]="ClasseCours.nombreHeure" name="nombreHeure" required [ngClass]="{'is-invalid':nombreHeure.invalid && (nombreHeure.dirty || nombreHeure.touched),'is-valid':nombreHeure.valid && (nombreHeure.dirty || nombreHeure.touched)}"ng-pattern="/^[1-2]$/">   
+                          </div>
+                           
+                            <button type="submit" class="btn btn-primary" [disabled]="addCoursForm.invalid">Valider</button>
+                            <!-- fieldsets -->
+                            <br><br>
+                 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  class="about_box" >
+          <h3>la liste de cours</h3>
+  
+          
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Nombre Heures</th>
+             
+              <th scope="col">Etat</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let cours of listCours">
+              <th scope="row">{{cours.id}}</th>
+             
+            
+              <td>{{cours.nombreHeure}}</td>
+              <td>{{cours.etat}}</td>
+        
+              <td>
+                <button (click)="onSessionsByCours(cours.id)">Sessions</button>
+              </td>
+            </tr>
+           
+        
+            </tbody>
+          </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+<br> <br> <br>
+
+<div class="d-flex justify-content-end">
+  <div class="card bg-light text-dark rounded-3 h-100"  *ngIf="sessionsByCours.length >0;else blockElse">
+    <div class="card-body" >
+      <div 
+        class="d-flex justify-content-between align-items-center mb-4"
+      >
+        <h5 class="mb-0 ml-4">Les semestres d'une année </h5>
+      
+      </div>
+      <div class="table-responsive">
+        <table class="table table-primary">
+          <thead>
+            <tr >
+              <th scope="col">id</th>
+              <th scope="col">Date</th>
+              <th scope="col">Heure Debut</th>
+              <th scope="col">Heure Fin</th>
+              <th scope="col">Nombre Heure</th>
+              <th scope="col">Localisation</th>
+              <th scope="col">Etat</th>
+             
+            
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="" *ngFor="let session of sessionsByCours">
+              <td scope="row">{{session.id}}</td>
+              <td>{{session.date}}</td>
+              <td>{{session.heureDebut}}</td>
+              <td>{{session.heureFin }}</td>
+              <td>{{session.nombreHeure}}</td>
+              <td>{{session.localisation}}</td>
+              <td>{{session.etat}}</td>
+            
+             
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+    <ng-template #blockElse>
+     
+    </ng-template>
+  </div>
+
+
+
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <!-- about section end -->
+</div>
+<!-- layout_bg section end -->
+
+
+
+
+
+

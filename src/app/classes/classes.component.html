@@ -1,0 +1,150 @@
+<!-- layout_bg section start -->
+<div class="layout_bg">
+    <!-- services section start -->
+
+    <!-- services section end -->
+    <!-- repair pool section start -->
+
+    <!-- repair pool section end -->
+    <!-- swiming section start -->
+
+    <!-- swiming section end -->
+    <!-- about section start -->
+    <div class="about_section layout_padding">
+        <div class="container">
+            <div class="about_box">
+                <section >
+
+                   <!-- MultiStep Form -->
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+      <div  class="d-flex justify-content-end ml-2">
+        <a class=" text-danger fs-5 border border-success m-t-5" routerLink="/" >retour </a>
+        <a class=" text-white fs-5 border border-primary" routerLink="/formulaires/anneeScolaire" >annee scolaire</a>
+        <a class=" text-white fs-5 border border-success" routerLink="/classes/filiere" >create filiere</a><br>
+        <a class=" text-white fs-5 border border-primary" routerLink="/classes/niveau" >create niveau</a>
+      </div>
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2><strong>creation d'une classe</strong></h2>
+                
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                      {{classe.niveau +' ' + classe.filiere }}
+                        <form id="msform" #addClasseForm="ngForm" (ngSubmit)="addClasseForm.valid && onAddClasse()">
+                          <div class="form-group">
+                            <label for="" >Niveau</label>
+                            <select class="form-select" aria-label="Default select example"name="niveau"[(ngModel)]="classe.niveau"required>
+                              <option selected  *ngFor="let niveau of niveaux"  [value]="niveau.libelle">{{niveau.libelle}}</option>
+                            </select>
+                            <label for="" >Filiere</label>
+                            <select class="form-select" aria-label="Default select example" name="filiere"[(ngModel)]="classe.filiere"   required>
+                              <option selected  *ngFor="let filiere of filieres"  [value]="filiere.libelle">{{filiere.libelle}}</option>
+                            </select>
+                          </div>
+                            <button type="submit" class="btn btn-primary" [disabled]="addClasseForm.invalid">Valider</button>
+                            <!-- fieldsets -->
+                            <br><br>
+                      
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  class="about_box" >
+          <h3>la liste de classes</h3>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Filiere</th>
+              <th scope="col">Niveau</th>
+              <th scope="col">Libelle</th>
+              <th scope="col">Etat</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let classe of classes">
+              <th scope="row">{{classe.id}}</th>
+              <td>{{classe.filiere}}</td>
+              <td>{{classe.niveau}}</td>
+              <td>{{classe.libelle}}</td>
+              <td>{{classe.etat}}</td>
+        
+              <td>
+                <button (click)="onCoursByClasse(classe.id)">cours</button>
+              </td>
+            </tr>
+           
+        
+            </tbody>
+          </table>
+        </div>
+
+    </div>
+</div>
+
+<br> <br> <br>
+
+<div class="d-flex justify-content-end">
+  <div class="card bg-light text-dark rounded-3 h-100"  *ngIf="coursByClasse.length >0;else blockElse">
+    <div class="card-body" >
+      <div 
+        class="d-flex justify-content-between align-items-center mb-4"
+      >
+        <h5 class="mb-0 ml-4">Les semestres d'une année </h5>
+      
+      </div>
+      <div class="table-responsive">
+        <table class="table table-primary">
+          <thead>
+            <tr >
+              <th scope="col">id</th>
+              <th scope="col">Nombre Heure </th>
+             
+            
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="" *ngFor="let cours of coursByClasse">
+              <td scope="row">{{cours.id}}</td>
+              <td> {{cours.nombreHeure}}</td>
+            
+             
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+    <ng-template #blockElse>
+     
+    </ng-template>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <!-- about section end -->
+</div>
+<!-- layout_bg section end -->
+
+
+
+
+
