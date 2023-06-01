@@ -28,6 +28,7 @@
         <a class=" text-white fs-5 border border-success m-t-10" routerLink="/formulaires/semestre" >create semestre </a>
         <a class=" text-white fs-5 border border-primary " routerLink="/formulaires/salle" >create salle</a>
         <a class=" text-white fs-5 border border-secondary " routerLink="/classes/module" >create module</a>
+        <a class=" text-white fs-5 border border-secondary " routerLink="/prof/professeur" >professeur</a>
         <a class=" text-white fs-5 border border-secondary " routerLink="/classes/" >create classe</a>
         <a class=" text-white fs-5 border border-secondary " routerLink="/classes/cours" >create cours</a>
       </div>
@@ -43,46 +44,18 @@
                         <form id="msform" #addAnnScolaireForm="ngForm" (ngSubmit)="addAnnScolaireForm.valid && onAddAnneScolaire()">
                           <div class="form-group">
                             <!-- progressbar -->
-                            <input type="text" class="form-control" 
-                            #libelle="ngModel"
-
-                            id="libelle" 
-                            [(ngModel)]="annScolaire.libelle" 
-                            name="libelle" 
-                            required
-                           
-                            [ngClass]="{
-                              'is-invalid':libelle.invalid && (libelle.dirty || libelle.touched),
-                              'is-valid':libelle.valid && (libelle.dirty || libelle.touched)
-                             }"
-                             pattern="^\d{4}-\d{2}$"
-                            
-                            >   
-                            
+                            <input type="date" class="form-control" #dateDebut="ngModel" id="dateDebut" [(ngModel)]="annScolaire.dateDebut" name="dateDebut"required > 
+                            <input type="date" class="form-control" #dateDebut="ngModel" id="dateFin" [(ngModel)]="annScolaire.dateFin" name="dateFin"required > 
+                            <input type="text" class="form-control" #libelle="ngModel" id="libelle" [(ngModel)]="annScolaire.libelle" name="libelle"required [ngClass]="{'is-invalid':libelle.invalid && (libelle.dirty || libelle.touched),'is-valid':libelle.valid && (libelle.dirty || libelle.touched)}"pattern="^\d{4}-\d{2}$">   
                             <div class="text-danger" *ngIf="libelle.errors && (libelle.dirty)">
                               <span *ngIf="libelle.errors['required']">libelle est obligatoire</span>
                               <span *ngIf="libelle.errors['pattern']">le libelle doit etre comme : 2022-23</span>
                             </div>                         
                             <br><br>
                           </div>
-                           
-                        
                             <button type="submit" class="btn btn-primary" [disabled]="addAnnScolaireForm.invalid">Valider</button>
                             <!-- fieldsets -->
                             <br><br>
-                            
-                             
-                              
-                            
-                           
-                          
-
-
-
-
-
-
-                           
                         </form>
                     </div>
                 </div>
@@ -104,6 +77,8 @@
             <thead>
             <tr>
               <th scope="col">id</th>
+              <th scope="col">Date Debut</th>
+              <th scope="col">Date Fin</th>
               <th scope="col">libelle</th>
               <th scope="col">sessions</th>
               <th scope="col">Action</th>
@@ -112,6 +87,8 @@
             <tbody>
             <tr  *ngFor="let anneescolaire of anneescolaires">
               <th scope="row">{{anneescolaire.id}}</th>
+              <td>{{anneescolaire.dateDebut | date: 'shortDate'}}</td>
+              <td>{{anneescolaire.dateFin| date: 'shortDate'}}</td>
               <td>{{anneescolaire.libelle}}</td>
               <td >
                 <button (click)="onUneAnneScolaire(anneescolaire.id)">semestre</button>

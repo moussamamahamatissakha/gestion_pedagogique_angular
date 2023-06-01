@@ -5,13 +5,11 @@
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a onclick="closeNav()" routerLink="/" >Home</a>
-            <a onclick="closeNav()" routerLink="/formulaires/anneeScolaire" >Annee-scolaire</a>
-            <a onclick="closeNav()" routerLink="/classes" > Classe </a>
-            <a onclick="closeNav()" routerLink="/formulaires/professeur" >Les Proffesseurs</a>
-            <a onclick="closeNav()" routerLink="/formulaires/anneeScolaire" >Les forms</a>
-            <a onclick="closeNav()" routerLink="/formulaires/anneeScolaire" >Les Etudiants</a>
-
-
+            <a onclick="closeNav()" routerLink="/formulaires/anneeScolaire" *ngIf="hasRpRole()" >Annee-scolaire</a>
+            <a onclick="closeNav()" routerLink="/classes" *ngIf="hasRpRole()"> Classe </a>
+            <a onclick="closeNav()" routerLink="/prof/professeur" *ngIf="hasRpRole()">Les Proffesseurs</a>
+            <a onclick="closeNav()" routerLink="/prof" *ngIf="hasProf() && !hasRpRole()" >Mes cours</a>
+           
         </div>
         <div class="header_taital_main">
             <span class="toggle_icon" onclick="openNav()"><img src="assets/images/toggle-icon.png"></span>
@@ -24,15 +22,27 @@
                 </span>
                 
             </h6>
-            <div class="logo"><a href="index.html">
+            <div class="logo">
+            <a href="index.html">
                 <img src="assets/images/logo.png">
             </a></div>
             <h6 class="call_text"><img src="assets/images/mail-icon.png"><span class="padding_left_10"><a
-                    href="">mamari@gmail.com</a></span></h6>
+                    href="">{{ photo }}</a></span></h6>
+                    dd<img src="{{photo}}" alt="">
             <div class="login_text">
-                <ul>
-                    <li><a href="#"><img src="assets/images/user-icon.png"></a></li>
-                    <li><a href="#"><img src="assets/images/search-icon.png"></a></li>
+                <ul >
+                 
+                    <li  class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/images/user-icon.png"></a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" routerLink="/security/login" *ngIf="!isLoggedIn()" >login</a></li>
+                            <li><a (click)="logout()" *ngIf="isLoggedIn()">logout</a></li>
+                            
+                            
+                          </ul>
+                    </li>
+                   
                 </ul>
             </div>
         </div>

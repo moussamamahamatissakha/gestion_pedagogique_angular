@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,TemplateRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { Professeur } from 'src/app/shared/models/profModel';
 import {  Salle } from 'src/app/shared/models/schoolModel';
@@ -13,7 +13,7 @@ import { SchoolService } from 'src/app/shared/services/school.service';
 export class ProfesseurComponent implements OnInit{
 
   public professeurs:Professeur[]=[]
- 
+  p: number = 1;
   professeur: any = {};
   constructor(
     private schoolService:SchoolService,

@@ -6,6 +6,7 @@ import { FiliereComponent } from './filiere/filiere.component';
 import { CoursComponent } from './cours/cours.component';
 import { ModuleComponent } from './module/module.component';
 import { SessionComponent } from './session/session.component';
+import { EtudiantComponent } from './etudiant/etudiant.component';
 
 const routes: Routes = [
   { path: '', component: ClassesComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'cours', component: CoursComponent },
   { path: 'module', component: ModuleComponent },
   { path: 'session', component: SessionComponent },
+  { path: 'etudiant', component: EtudiantComponent },
 
 ];
 

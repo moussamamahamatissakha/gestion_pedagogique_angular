@@ -1,3 +1,4 @@
+
 import { Cours } from "./classe-model"
 
 export interface Professeur {
@@ -5,6 +6,9 @@ export interface Professeur {
     grade:string
     nom:string
     specialite:string
+    login:string
+    password:string
+    photo:string
     coursDTOList?:Cours[]
     
 }

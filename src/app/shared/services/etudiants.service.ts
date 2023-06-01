@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class EtudiantsService {
 
   constructor(private http:HttpClient) { }
-  private url=`http://localhost:8080/angular/etudiant`
+  private url=`http://localhost:8080/api/etudiant`
   //etudiants
      //============================================Etudiant==========================================================
   
@@ -24,5 +24,10 @@ export class EtudiantsService {
       return this.http.post(`${this.url}/addEtudiant`,etudiant)
       //this.isConnect.next(true)
     }
+    //EtudiantsByClasse
+    getEtudiantsByClasseId(id:number):Observable<Etudiant[]>
+  {
+    return this.http.get<Etudiant[]>(`${this.url}/EtudiantsByClasse/${id}`)
+  }
 
 }

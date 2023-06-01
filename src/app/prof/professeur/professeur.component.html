@@ -25,7 +25,7 @@
         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                 <h2><strong>creation d'un professeur</strong></h2>
-                <p>Nom</p>
+                <p>Login</p>
                 <div class="row">
                   
                     <div class="col-md-12 mx-0">
@@ -33,13 +33,17 @@
                         <form id="msform" #addSalleForm="ngForm" (ngSubmit)="addSalleForm.valid && onAddProfesseur()">
                           <div class="form-group">
                             <!-- progressbar -->
+                            <input type="text" class="form-control" #login="ngModel"id="login" [(ngModel)]="professeur.login" name="login" required [ngClass]="{'is-invalid':login.invalid && (login.dirty || login.touched),'is-valid':login.valid && (login.dirty || login.touched)}">   
+                            <label for="">Mot de passe </label>
+                            <input type="password" class="form-control" #password="ngModel"id="password" [(ngModel)]="professeur.password" name="password" required [ngClass]="{'is-invalid':password.invalid && (password.dirty || password.touched),'is-valid':password.valid && (password.dirty || password.touched)}">   
+                            <label for="">Nom et Prenom </label>
                             <input type="text" class="form-control" #nom="ngModel"id="nom" [(ngModel)]="professeur.nom" name="nom" required [ngClass]="{'is-invalid':nom.invalid && (nom.dirty || nom.touched),'is-valid':nom.valid && (nom.dirty || nom.touched)}">   
                             <label for="">Grade </label>
                             
                             <input type="text" class="form-control" #nom="ngModel"id="grade" [(ngModel)]="professeur.grade" name="grade" required [ngClass]="{'is-invalid':nom.invalid && (nom.dirty || nom.touched),'is-valid':nom.valid && (nom.dirty || nom.touched)}">   
                             <label for="">Specialite </label>
                             <input type="text" class="form-control" #numero="ngModel"id="numero" [(ngModel)]="professeur.specialite" name="specialite" required [ngClass]="{'is-invalid':numero.invalid && (numero.dirty || numero.touched),'is-valid':numero.valid && (numero.dirty || numero.touched)}">   
-                           
+                            
                             <div class="text-danger" *ngIf="nom.errors && (nom.dirty)">
                               <span *ngIf="nom.errors['required']">libelle est obligatoire</span>
                              
@@ -63,6 +67,7 @@
             <thead>
             <tr>
               <th scope="col">id</th>
+              <th scope="col">Photo</th>
               <th scope="col">Nom</th>
               <th scope="col">Grade</th>
               <th scope="col">Specialité</th>
@@ -70,8 +75,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr  *ngFor="let professeur of professeurs">
+            <tr   *ngFor="let professeur of professeurs | paginate: { itemsPerPage: 3, currentPage: p }">
               <th scope="row">{{professeur.id}}</th>
+              <th scope="row">
+                <div class="circle-image">
+                  <img src="{{professeur.photo}}" alt="{{professeur.id}}" width="100px">
+                </div>
+               
+              </th>
               <td>{{professeur.nom}}</td>
               <td>{{professeur.grade}}</td>
               <td>{{professeur.specialite}}</td>
@@ -80,10 +91,15 @@
                 <a >les cours</a>
               </td>
             </tr>
-           
-        
             </tbody>
+            
           </table>
+          <ul class="text-center mt-8">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </ul>
+          
+         
+          
         </div>
     </div>
 </div>

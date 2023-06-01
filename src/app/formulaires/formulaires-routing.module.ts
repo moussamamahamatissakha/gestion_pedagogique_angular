@@ -4,7 +4,7 @@ import { FormulairesComponent } from './formulaires.component';
 import { AnneeScolaireComponent } from './annee-scolaire/annee-scolaire.component';
 import { SemestreComponent } from './semestre/semestre.component';
 import { SalleComponent } from './salle/salle.component';
-import { ProfesseurComponent } from './professeur/professeur.component';
+import { ProfesseurComponent } from '../prof/professeur/professeur.component';
 
 
 const routes: Routes = [
@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: 'anneeScolaire', component: AnneeScolaireComponent },
   { path: 'semestre', component: SemestreComponent },
   { path: 'salle', component: SalleComponent },
-  { path: 'professeur', component: ProfesseurComponent },
 
 
 ];

@@ -1,3 +1,4 @@
+import { Professeur } from "./profModel"
 import { Module, Semestre } from "./schoolModel"
 
 export interface Classe {
@@ -26,14 +27,21 @@ export interface Filiere {
 }
 export interface Cours {
     id:number
-    nombreHeure:number
-    etat:string
-    module:Module
+    nombreHeuresGlobale:number
+    nombreHeuresDeroule:number
+    nombreHeuresRestant:number
     idModule:number
+    idSemestre:number
+    etat:string
+    moduleDTO:Module
+    NomProf:string
+    date:Date
+    semestre:Semestre
     classe:Classe
     coursClasses:any[]
-    semestre:Semestre
-    idSemestre:number
+    professeurDTO:Professeur 
+    moduleLibelle:string
+    //semestreDTO
 }
 export interface Session {
     id:number
@@ -44,7 +52,7 @@ export interface Session {
     localisation:string
     date:Date
     cours:Cours
-    nombreHeure:string
+    nombreHeure:number
     idCours:number
 }
 export interface CoursClasse {

@@ -20,15 +20,15 @@
     <div class="row justify-content-center mt-0">
       <div  class="d-flex justify-content-start ml-2">
         <a class=" text-white fs-5 border border-danger" routerLink="/formulaires/anneeScolaire" >retour</a><br>
-       
+      
       </div>
       <div  class="d-flex justify-content-end ml-2">
         <a class=" text-white fs-5 border border-white" routerLink="/classes/session" >session</a><br>
-       
       </div>
         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                 <h2><strong>creation d'un cours</strong></h2>
+               
                 
                 <div class="row">
                     <div class="col-md-12 mx-0">
@@ -76,35 +76,75 @@
             </div>
         </div>
         <div  class="about_box" >
+          <div  class="d-flex justify-content-end ml-2">
+            <button (click)="onCoursByEtat(3)" class=" text-black fs-6 border border-primary ml-2" >all</button>
+            <button (click)="onCoursByEtat(1)" class=" text-black fs-6 border border-primary ml-2" >en cours</button>
+            <button (click)="onCoursByEtat(2)" class=" text-black fs-6 border border-primary ml-2" >terminer</button>
+          </div>
+         
           <h3>la liste de cours</h3>
+         
   
           
           <table class="table">
+           
             <thead>
+            
             <tr>
               <th scope="col">id</th>
-              <th scope="col">Nombre Heures</th>
-             
+              <th scope="col">Date</th>
+              <th scope="col">Nombre Heures Grobales</th>
+              <th scope="col">Deroulés</th>
+              <th scope="col">Restants</th>
+              <th scope="col">Module</th>
+              <th scope="col">Professeur</th>
               <th scope="col">Etat</th>
+              <th scope="col"></th>
               <th scope="col">Action</th>
+              <th scope="col"></th>
+
             </tr>
             </thead>
             <tbody>
-            <tr  *ngFor="let cours of listCours">
+            <tr   *ngFor="let cours of listCours | paginate: { itemsPerPage: 6, currentPage: p }">
               <th scope="row">{{cours.id}}</th>
-             
-            
-              <td>{{cours.nombreHeure}}</td>
+              <td><i class="fa-solid fa-calendar-days"></i>{{cours.date| date: 'shortDate'}} H</td>
+              <td><i class="fa-solid fa-border-all"></i> {{cours.nombreHeuresGlobale}} H</td>
+              <td><i class="fa-solid fa-hourglass-end"></i>{{cours.nombreHeuresDeroule}} H</td>
+              <td><i class="fa-solid fa-clock-two"></i>{{cours.nombreHeuresRestant}} H</td>
+              <td>{{cours.moduleDTO.libelle}}</td>
+              <td>{{cours.NomProf}}</td>
               <td>{{cours.etat}}</td>
-        
+              <td></td>
               <td>
-                <button (click)="onSessionsByCours(cours.id)">Sessions</button>
+              
+                <button (click)="openModal(modalTemplate,cours.id)">Voir les sessions</button>
               </td>
-            </tr>
-           
+              <td>
+                <div *ngIf="cours.etat === 'En Cours'">
+                  <button (click)="onChangeEtatToCoursToTerminer(cours.id)"class="ml-2 bg-primary text-white"><i class="fa-solid fa-check"></i>Terminer</button>
+                  <button (click)="onChangeEtatToCoursToAnnuler(cours.id)" class="ml-2 bg-success text-white"><i class="fas fa-rectangle-xmark"></i>Annuler</button>
+                 </div>
+                 <div *ngIf="cours.etat === 'Terminer'">
+                  <button [disabled]="true">Terminer</button>
+                 </div>
+                 <div *ngIf="cours.etat === 'Annuler'">
+                  <button [disabled]="true">Annuler</button>
+                 </div>
+               
+              </td>
         
+            </tr>
             </tbody>
+            
+            
           </table>
+          <ul class="text-center mt-8">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </ul>
+         
+          
+          
         </div>
 
     </div>
@@ -113,18 +153,13 @@
 
 
 <br> <br> <br>
-
-<div class="d-flex justify-content-end">
-  <div class="card bg-light text-dark rounded-3 h-100"  *ngIf="sessionsByCours.length >0;else blockElse">
-    <div class="card-body" >
-      <div 
-        class="d-flex justify-content-between align-items-center mb-4"
-      >
-        <h5 class="mb-0 ml-4">Les semestres d'une année </h5>
-      
-      </div>
-      <div class="table-responsive">
+<ng-template #modalTemplate>
+    <h4 class="">Le Cours a  {{sessionsByCours.length }} sessions</h4>
+      <div  class="" *ngIf="sessionsByCours.length >0;else blockElse">
         <table class="table table-primary">
+          <button type="button" class="close d-flex justify-content-end" aria-label="Fermer" (click)="modalRef.hide()" >
+            <span aria-hidden="true">&times;</span>
+          </button>
           <thead>
             <tr >
               <th scope="col">id</th>
@@ -134,6 +169,7 @@
               <th scope="col">Nombre Heure</th>
               <th scope="col">Localisation</th>
               <th scope="col">Etat</th>
+              <th scope="col">Action</th>
              
             
             </tr>
@@ -141,12 +177,35 @@
           <tbody>
             <tr class="" *ngFor="let session of sessionsByCours">
               <td scope="row">{{session.id}}</td>
-              <td>{{session.date}}</td>
+              <td>{{session.date| date: 'shortDate'}}</td>
               <td>{{session.heureDebut}}</td>
               <td>{{session.heureFin }}</td>
               <td>{{session.nombreHeure}}</td>
               <td>{{session.localisation}}</td>
               <td>{{session.etat}}</td>
+              <td>
+                <div *ngIf="session.etat === 'En Cours'">
+                 <button (click)="onChangeEtatToSessionToTerminer(session.id)" class="ml-2 bg-primary text-white">Dispenser</button>
+                 <button (click)="onChangeEtatToSessionToAnnuler(session.id)"  class="ml-2 bg-success text-white">Annuler</button>
+                </div>
+
+                  <div *ngIf="session.etat === 'Declare Terminer'">
+                  <button (click)="onChangeEtatToSessionToTerminer(session.id)" class="ml-2 bg-primary text-white">Dispenser</button>
+                  </div>
+                  <div *ngIf="session.etat === 'Demande Annuler'">
+                      <button (click)="onChangeEtatToSessionToAnnuler(session.id)"  class="ml-2 bg-success text-white">Reporter</button>
+                   </div>
+                <div *ngIf="session.etat === 'Dispenser'">
+                  <button [disabled]="true">Dispenser</button>
+                 </div>
+                 <div *ngIf="session.etat === 'Reporter'">
+                  <button [disabled]="true">Reporter</button>
+                 </div>
+
+              </td>
+             
+              
+              
             
              
             </tr>
@@ -154,12 +213,12 @@
         </table>
       </div>
       
-    </div>
-  </div>
+  
     <ng-template #blockElse>
      
     </ng-template>
-  </div>
+ 
+</ng-template>
 
 
 

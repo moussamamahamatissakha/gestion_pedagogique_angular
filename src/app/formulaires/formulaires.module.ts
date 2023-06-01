@@ -7,7 +7,6 @@ import { AnneeScolaireComponent } from './annee-scolaire/annee-scolaire.componen
 import { FormsModule } from '@angular/forms';
 import { SemestreComponent } from './semestre/semestre.component';
 import { SalleComponent } from './salle/salle.component';
-import { ProfesseurComponent } from './professeur/professeur.component';
 
 
 
@@ -17,7 +16,7 @@ import { ProfesseurComponent } from './professeur/professeur.component';
     AnneeScolaireComponent,
     SemestreComponent,
     SalleComponent,
-    ProfesseurComponent,
+   
   
   ],
   imports: [

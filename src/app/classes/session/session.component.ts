@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Classe, Cours, Session } from 'src/app/shared/models/classe-model';
 import { Module, Semestre } from 'src/app/shared/models/schoolModel';
 import { ClassesService } from 'src/app/shared/services/classes.service';
 import { SchoolService } from 'src/app/shared/services/school.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-session',
@@ -22,6 +23,7 @@ export class SessionComponent implements OnInit{
   session: any = {};
 
   constructor(
+    private modalService: BsModalService,
     private classeService:ClassesService,
     private schoolService:SchoolService,
     private router:Router)
@@ -57,6 +59,8 @@ export class SessionComponent implements OnInit{
             console.log(error);
           });
     }
+
+   
     
    
 

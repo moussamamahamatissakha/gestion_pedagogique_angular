@@ -14,7 +14,7 @@ export class SchoolService {
   constructor(private http:HttpClient) { }
   //============================================annee-scolaire===================================================
   //public anneescolaires:AnneeScolaire[]=[]
-  private url=`http://localhost:8080/angular/school`
+  private url=`http://localhost:8080/api/school`
   getAllAnneescolaires():Observable<AnneeScolaire[]>
   {
     return this.http.get<AnneeScolaire[]>(this.url)

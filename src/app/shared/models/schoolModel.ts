@@ -4,11 +4,13 @@ export interface AnneeScolaire {
     id:number
     libelle:string
     semestres:Semestre[]
+    dateDebut :string;
+    dateFin :string;
 }
 export interface Semestre {
     id:number
     numero:string
-    idAnnee:number
+    //idAnnee:number
     anneeScolaire:AnneeScolaire 
 }
 

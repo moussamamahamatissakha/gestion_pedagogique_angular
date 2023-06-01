@@ -1,9 +1,11 @@
-import { Component, OnInit,HostListener } from '@angular/core';
+import { Component, OnInit,HostListener, Output } from '@angular/core';
 
 import { SchoolService } from '../shared/services/school.service';
 import { Router } from '@angular/router';
 import { ClassesService } from '../shared/services/classes.service';
 import { Classe, Cours, Filiere, Niveau } from '../shared/models/classe-model';
+import { Etudiant } from '../shared/models/etudiant-model';
+import { EtudiantsService } from '../shared/services/etudiants.service';
 
 @Component({
   selector: 'app-classes',
@@ -11,17 +13,19 @@ import { Classe, Cours, Filiere, Niveau } from '../shared/models/classe-model';
   styleUrls: ['./classes.component.css']
 })
 export class ClassesComponent implements OnInit{
-
+  @Output() public etudiants:Etudiant[]=[]
   public classes:Classe[]=[]
   public filieres:Filiere[]=[]
   public niveaux:Niveau[]=[]
   public coursByClasse:Cours[]=[]
+  p: number = 1;
 
   //public semestre!:Semestre
 
   classe: any = {};
   constructor(
     private classeService:ClassesService,
+    private etudiantsService:EtudiantsService,
     private router:Router)
   {
 
@@ -63,6 +67,15 @@ export class ClassesComponent implements OnInit{
         this.coursByClasse=data
         //this.annScolaire.semestres=this.semestres;
 
+      )
+
+    }
+    //onEtudiantByClasse
+    onEtudiantByClasse(id:number)
+    {
+      this.etudiantsService.getEtudiantsByClasseId(id).subscribe(data => 
+        this.etudiants=data
+        //this.annScolaire.semestres=this.semestres;
       )
 
     }

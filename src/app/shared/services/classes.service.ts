@@ -11,7 +11,7 @@ export class ClassesService {
 
   constructor(private http:HttpClient) { }
 
-  private url=`http://localhost:8080/angular/classe`
+  private url=`http://localhost:8080/api/classe`
 
 
 
@@ -77,6 +77,22 @@ export class ClassesService {
      return this.http.post(`${this.url}/addCours`,filiere)
      
    }
+   //coursByEtat
+   getCoursdByEtat(etat:string):Observable<Cours[]>
+   {
+     return this.http.get<Cours[]>(`${this.url}/coursByEtat/${etat}`)
+   
+   }
+   //setEtatToCours
+   setEtatToCoursToAnnuler(id:number):Observable<Cours[]>
+   {
+     return this.http.get<Cours[]>(`${this.url}/setEtatToCoursToAnnuler/${id}`)
+   }
+   setEtatToCoursToTerminer(id:number):Observable<Cours[]>
+   {
+     return this.http.get<Cours[]>(`${this.url}/setEtatToCoursToTerminer/${id}`)
+   }
+
     //============================================Session==========================================================
 
     getAllSession():Observable<Session[]>
@@ -97,6 +113,18 @@ export class ClassesService {
      return this.http.post(`${this.url}/addSession`,session)
      
    }
+   //setEtatToSession
+   setEtatToSessionToTerminer(id:number):Observable<Session>
+    {
+      return this.http.get<Session>(`${this.url}/setEtatToSessionToTerminer/${id}`)
+      
+    }
+    setEtatToSessionToAnnuler(id:number):Observable<Session>
+    {
+      return this.http.get<Session>(`${this.url}/setEtatToSessionToAnnuler/${id}`)
+      
+    }
+    
    
 
 

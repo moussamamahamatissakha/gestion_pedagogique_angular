@@ -1,0 +1,264 @@
+<!-- layout_bg section start -->
+<div class="layout_bg">
+    <!-- services section start -->
+
+    <!-- services section end -->
+    <!-- repair pool section start -->
+
+    <!-- repair pool section end -->
+    <!-- swiming section start -->
+
+    <!-- swiming section end -->
+    <!-- about section start -->
+    <div class="about_section layout_padding">
+        <div class="container">
+            <div class="about_box">
+                <section >
+
+                   <!-- MultiStep Form -->
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+      <div  class="d-flex justify-content-end ml-2">
+        <a class=" text-danger fs-5 border border-success m-t-5" routerLink="/" >retour </a>
+        <button class=" t fs-5 border border-primary" (click)="openModal(modalTemplate)">filter par semaine</button>
+      </div>
+      
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+          
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h6><strong>Filtrer par date</strong></h6>
+                
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                        <form id="msform" #searchCoursByProfAndDate="ngForm" (ngSubmit)="searchCoursByProfAndDate.valid && onChercheCoursByProfByDate()">
+                              <input type="date" id="byDate" [(ngModel)]="byDate" name="byDate" />
+                            <button type="submit" class="btn btn-primary ml-2" [disabled]="searchCoursByProfAndDate.invalid">Rechercher</button>
+                            <!-- fieldsets -->
+                            <br><br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+             
+            <form id="msform" #searchCoursByModule="ngForm" (ngSubmit)="searchCoursByModule.valid && onFindCoursByModule()">
+              <label for="" >Rechercher Par Module</label>
+             
+              <select class="form-select" aria-label="Default select example" name="idByModel" id="idByModel" [(ngModel)]="idByModel"  required>
+                <option selected  *ngFor="let module of moduleBycoursByProf"  [value]="module.id">{{module.libelle}}</option>
+              </select>
+                
+                  <button type="submit" class="btn btn-primary ml-2" [disabled]="searchCoursByModule.invalid">Rechercher</button>
+                <!-- fieldsets -->
+                <br><br>
+            </form>
+
+
+        </div>
+        <div  class="about_box" >
+          <div class=" text-primary fs-5  m-t-5 d-flex justify-content-end">
+            <button  (click)="onRechargeCoursToAll()" >all</button>
+          </div>
+        
+          <h3>la liste de classes</h3>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Date</th>
+                <th scope="col">Nombre Heures Grobales</th>
+                <th scope="col">Deroulés</th>
+                <th scope="col">Restants</th>
+                <th scope="col">Module</th>
+                <th scope="col">Etat</th>
+                <th scope="col"></th>
+                <th scope="col">Action</th>
+                <th scope="col"></th>
+  
+              </tr>
+              </thead>
+              <tbody>
+              <tr  *ngFor="let cours of cours">
+                <th scope="row">{{cours.id}}</th>
+                <td>{{cours.date}} </td>
+                <td>{{cours.nombreHeuresGlobale}} H</td>
+                <td>{{cours.nombreHeuresDeroule}} H</td>
+                <td>{{cours.nombreHeuresRestant}} H</td>
+                <td>{{cours.moduleDTO.libelle}}</td>
+                <td>{{cours.etat}}</td>
+                <td></td>
+                <td>
+                  <button (click)="onSessionsByCours(cours.id)">Sessions</button>
+                </td>
+                <td>
+                  <div *ngIf="cours.etat === 'En Cours'">
+                    <button class="ml-2 bg-primary text-white">Terminer</button>
+                    <button  class="ml-2 bg-success text-white">Annuler</button>
+                   </div>
+                   <div *ngIf="cours.etat === 'Terminer'">
+                    <button [disabled]="true">Terminer</button>
+                   </div>
+                   <div *ngIf="cours.etat === 'Annuler'">
+                    <button [disabled]="true">Annuler</button>
+                   </div>
+                 
+                </td>
+          
+              </tr>
+             
+           
+        
+            </tbody>
+          </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+  <ng-template #modalTemplate>
+    <form id="msform" #searchCoursByProfByPeride="ngForm" (ngSubmit)="searchCoursByProfByPeride.valid && onChercheCoursByProfByPeriode()">
+    <!-- fieldsets -->
+    <br><br>
+
+    <div class="modal-header">
+      <h4 class="modal-title">Veillez saisir l'intervalle</h4>
+      <button type="button" class="close" aria-label="Fermer" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+    <label for="">date debut</label><br>
+    <input type="date" id="dateDebutFilter" [(ngModel)]="dateDebutFilter" name="dateDebutFilter" id=""><br>
+    <label for="">date fin</label><br>
+    <input type="date" name="dateFinFilter" id="dateFinFilter" [(ngModel)]="dateFinFilter"><br><br>
+    <button type="submit" class="btn btn-primary ml-2" [disabled]="searchCoursByProfByPeride.invalid">Rechercher</button>
+    </div>
+  </form>
+  </ng-template>
+</div>
+
+<br> <br> <br>
+
+<div class="d-flex justify-content-end">
+  <div class="card bg-light text-dark rounded-3 h-100"  *ngIf="sessionsByCours.length >0;else blockElse">
+    <div class="card-body" >
+      <div 
+      class="d-flex justify-content-between align-items-center mb-4"
+    >
+      <h5 class="mb-0 ml-4">Les sessions d'un cours </h5>
+    
+    </div>
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr >
+            <th scope="col">id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Heure Debut</th>
+            <th scope="col">Heure Fin</th>
+            <th scope="col">Nombre Heure</th>
+            <th scope="col">Localisation</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Action</th>
+           
+          
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="" *ngFor="let session of sessionsByCours">
+            <td scope="row">{{session.id}}</td>
+            <td>{{session.date}}</td>
+            <td>{{session.heureDebut}}</td>
+            <td>{{session.heureFin }}</td>
+            <td>{{session.nombreHeure}}</td>
+            <td>{{session.localisation}}</td>
+            <td>{{session.etat}}</td>
+            <td>
+              <div *ngIf="session.etat === 'En Cours'">
+               <button (click)="onChangeEtatSessionToDeclareTOrDemandeAnnuler(session.id,1)" class="ml-2 bg-primary text-white">Declare Terminer</button>
+               <button  (click)="onChangeEtatSessionToDeclareTOrDemandeAnnuler(session.id,2)"  class="ml-2 bg-success text-white">Demande D'Annuler</button>
+              </div>
+              <div *ngIf="session.etat === 'Dispenser'">
+                <button [disabled]="true">Dispenser</button>
+               </div>
+               <div *ngIf="session.etat === 'Reporter'">
+                <button [disabled]="true">Reporter</button>
+               </div>
+
+            </td>
+           
+            
+            
+          
+           
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      
+    </div>
+  </div>
+    <ng-template #blockElse>
+     
+    </ng-template>
+  </div>
+
+  
+<div class="d-flex justify-content-end">
+  <div class="card bg-light text-dark rounded-3 h-100"  *ngIf="etudiants.length >0;else blockElse">
+    <div class="card-body" >
+      <div 
+        class="d-flex justify-content-between align-items-center mb-4"
+      >
+        <h5 class="mb-0 ml-4">Les semestres d'une année </h5>
+      
+      </div>
+      <div class="table-responsive">
+        <table class="table table-primary">
+          <thead>
+            <tr >
+              <th scope="col">id</th>
+              <th scope="col">Login </th>
+              <th scope="col">Nom Complet </th>
+              <th scope="col">Matricule </th>
+              <th scope="col">Role </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="" *ngFor="let etudiant of etudiants">
+              <td scope="row">{{etudiant.id}}</td>
+              <td> {{etudiant.login}}</td>
+              <td> {{etudiant.nom_complet}}</td>
+              <td> {{etudiant.matricule}}</td>
+              <td> {{etudiant.role}}</td>
+            
+             
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+    <ng-template #blockElse>
+     
+    </ng-template>
+  </div>
+
+
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <!-- about section end -->
+</div>
+<!-- layout_bg section end -->
+
+
+
+
+
+

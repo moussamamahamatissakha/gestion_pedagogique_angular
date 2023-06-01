@@ -16,13 +16,15 @@ export class SemestreComponent implements OnInit{
 
   //public semestre!:Semestre
   //semestre!:Semestre;
-  
+  semestre:any={}
+  /*
   semestre:any={
     id:0,
     numero:'',
     idAnnee:0,
     //anneeScolaire:null
   }
+  */
   
   constructor(
     private schoolService:SchoolService,

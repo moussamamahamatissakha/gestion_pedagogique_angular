@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,TemplateRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { Classe, Cours, Filiere, Niveau, Session } from 'src/app/shared/models/classe-model';
 import { Professeur } from 'src/app/shared/models/profModel';
@@ -6,6 +6,7 @@ import { Module, Semestre } from 'src/app/shared/models/schoolModel';
 import { ClassesService } from 'src/app/shared/services/classes.service';
 import { ProfesseursService } from 'src/app/shared/services/prof.service';
 import { SchoolService } from 'src/app/shared/services/school.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-cours',
@@ -22,6 +23,8 @@ export class CoursComponent implements OnInit{
   public professeurs:Professeur[]=[]
 
   //public semestre!:Semestre
+  p: number = 1;
+  public modalRef!: BsModalRef;
 
 
   ClasseCours:any={
@@ -29,11 +32,12 @@ export class CoursComponent implements OnInit{
     idModule:0,
     idSemestre:0,
     idProfesseur:0,
-    nombreHeure:'',
+    nombreHeure:0,
     idClasses:[]
   }
 
-  constructor(
+  constructor(    
+    private modalService: BsModalService,
     private classeService:ClassesService,
     private schoolService:SchoolService,
     private professeursService:ProfesseursService,
@@ -96,9 +100,79 @@ export class CoursComponent implements OnInit{
         //this.annScolaire.semestres=this.semestres;
 
       )
-
+    }
+    onCoursByEtat(etat:number)
+    {
+      if(etat==1)
+      {
+        this.classeService.getCoursdByEtat("En Cours").subscribe(data => 
+          this.listCours=data
+          //this.annScolaire.semestres=this.semestres;
+        )
+      }
+      if(etat==2)
+      {
+        this.classeService.getCoursdByEtat("Terminer").subscribe(data => 
+          this.listCours=data
+          //this.annScolaire.semestres=this.semestres;
+        )
+        
+      }
+      if(etat==3)
+      {
+        this.classeService.getAllCours().subscribe(data => 
+          this.listCours=data
+          //this.annScolaire.semestres=this.semestres;
+  
+        )
+        
+      }
+    
+    }
+    //changer l'etat d'un cours
+    onChangeEtatToCoursToAnnuler(id:number)
+    {
+      this.classeService.setEtatToCoursToAnnuler(id).subscribe(data => 
+        this.listCours=data
+        
+        //this.annScolaire.semestres=this.semestres;
+      )
+      window.location.reload();
+    }
+    onChangeEtatToCoursToTerminer(id:number)
+    {
+      this.classeService.setEtatToCoursToTerminer(id).subscribe(data => 
+        this.listCours=data
+        
+        //this.annScolaire.semestres=this.semestres;
+      )
+      window.location.reload();
+    }
+    //setEtatToSession
+    onChangeEtatToSessionToTerminer(id:number)
+    {
+      this.classeService.setEtatToSessionToTerminer(id).subscribe(
+        
+        //this.annScolaire.semestres=this.semestres;
+      )
+      window.location.reload();
+    }
+    onChangeEtatToSessionToAnnuler(id:number)
+    {
+      this.classeService.setEtatToSessionToAnnuler(id).subscribe(
+        
+        //this.annScolaire.semestres=this.semestres;
+      )
+      window.location.reload();
     }
 
-
+    openModal(template: TemplateRef<any>,id:number) {
+      this.modalRef = this.modalService.show(template);
+      this.classeService.getSessionByCoursId(id).subscribe(data => 
+        this.sessionsByCours=data
+        //this.annScolaire.semestres=this.semestres;
+      )
+    
+    }
 }
 

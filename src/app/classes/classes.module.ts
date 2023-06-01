@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ClassesRoutingModule } from './classes-routing.module';
 import { ClassesComponent } from './classes.component';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +8,10 @@ import { NiveauComponent } from './niveau/niveau.component';
 import { CoursComponent } from './cours/cours.component';
 import { ModuleComponent } from './module/module.component';
 import { SessionComponent } from './session/session.component';
+import { EtudiantComponent } from './etudiant/etudiant.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { BrowserModule } from '@angular/platform-browser';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -19,12 +22,21 @@ import { SessionComponent } from './session/session.component';
     FiliereComponent,
     CoursComponent,
     ModuleComponent,
-    SessionComponent
+    SessionComponent,
+    EtudiantComponent,
   ],
   imports: [
+    NgxPaginationModule,
     CommonModule,
     ClassesRoutingModule,
-    FormsModule
+
+    //le package de formulaire
+    FormsModule,
+    //le package de pagination
+ 
+   // BrowserModule,
+    ModalModule.forRoot()
+    
   ]
 })
 export class ClassesModule { }
